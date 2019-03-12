@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Crown = (props)=>{
     const {isHighScore} = props;
@@ -11,5 +12,8 @@ const Crown = (props)=>{
     )
 }
 
+Crown.propTypes={
+    isHighScore : PropTypes.bool
+}
 
 export default Crown;

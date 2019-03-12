@@ -12,11 +12,12 @@ class Player extends PureComponent {
         score: PropTypes.number.isRequired,
         index: PropTypes.number,
         removePlayer: PropTypes.func,
-        changeScore: PropTypes.func
+        changeScore: PropTypes.func,
+        isHighScore:PropTypes.bool
     }
 
     render(){
-        const { name,id,score,index,removePlayer,changeScore,highScore}=this.props;
+        const { name,id,score,index,removePlayer,changeScore}=this.props;
         //console.log("player "+highScore);
         //console.log(name + ' rendered')
         return(
