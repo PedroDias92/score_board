@@ -38,11 +38,6 @@ class App extends Component{
     this.setState(prevState =>({
         score: prevState.players[index].score += delta
     }))
-    console.log("current "+this.highScore)
-    if(this.highScore < this.state.players[index].score + delta){
-        this.highScore = this.state.players[index].score + delta
-        console.log("new "+this.highScore)
-    }
     //console.log(index);
     //console.log(delta);
     }
@@ -70,8 +65,17 @@ class App extends Component{
         }
       });
   }
+  getHighScore(){
+      const scores = this.state.players.map(p => p.score);
+      const highScore = Math.max(...scores);
+      if(highScore>0){
+          return highScore;
+      }
+      return null;
+  }
 
   render(){
+      const highScore=this.getHighScore();
       return(
           <div className="scoreboard">
               <Header 
@@ -91,7 +95,7 @@ class App extends Component{
                       index={index}
                       removePlayer={this.handleRemovePlayer.bind(this)}
                       changeScore={this.handleScoreChange.bind(this)}
-                      highScore={this.highScore}
+                      isHighScore = {highScore === player.score}
                   />
               )})}
               <AddPlayerForm addPlayer={this.handleAddPlayer.bind(this)}/>
