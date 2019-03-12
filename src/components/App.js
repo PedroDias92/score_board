@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Player from './Player';
+import AddPlayerForm from './AddPlayerForm';
 
 class App extends Component{
   //console.log(props.initialPlayers)
@@ -8,22 +9,38 @@ class App extends Component{
       players:[
           {
               name: "Guil",
+              score:0,
               id:1
           },
           {
               name: "Treasure",
+              score:0,
               id:2
           },
           {
-              name: "Ashley",  
+              name: "Ashley",
+              score:0,  
               id:3
           },
           {
               name: "James",
+              score:0,
               id:4
           }
       ]
   }
+  //player id counter
+  prevPlayerId = 4;
+
+  handleScoreChange(index,delta){
+    //console.log("hi, increment");
+    this.setState(prevState =>({
+        score: prevState.players[index].score += delta
+    }))
+    //console.log(index);
+    //console.log(delta);
+    }
+
 
   handleRemovePlayer(id){
       this.setState(prevState => {
@@ -33,12 +50,25 @@ class App extends Component{
       });
   }
 
+  handleAddPlayer(name){
+      this.setState({
+          players:[
+              ...this.state.players, //Spread syntax , makes a copy of all objects and adds a new one
+              {
+                name,
+                score: 0,
+                id: this.prevPlayerId +=1,
+              }
+          ]
+      })
+  }
+
   render(){
       return(
           <div className="scoreboard">
               <Header 
                   title="Scoreboard" 
-                  totalPlayers={this.state.players.length}
+                  players={this.state.players}
   
               />
               {/* Players List */}
@@ -47,11 +77,15 @@ class App extends Component{
                   return(
                   <Player 
                       name={player.name} 
+                      score={player.score}
                       id={player.id}
                       key={index.toString()}   //need to had a key because react needs to know what element to render
+                      index={index}
                       removePlayer={this.handleRemovePlayer.bind(this)}
+                      changeScore={this.handleScoreChange.bind(this)}
                   />
               )})}
+              <AddPlayerForm addPlayer={this.handleAddPlayer.bind(this)}/>
           </div>
       )
   } 
