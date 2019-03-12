@@ -31,12 +31,18 @@ class App extends Component{
   }
   //player id counter
   prevPlayerId = 4;
+  highScore=0;
 
   handleScoreChange(index,delta){
     //console.log("hi, increment");
     this.setState(prevState =>({
         score: prevState.players[index].score += delta
     }))
+    console.log("current "+this.highScore)
+    if(this.highScore < this.state.players[index].score + delta){
+        this.highScore = this.state.players[index].score + delta
+        console.log("new "+this.highScore)
+    }
     //console.log(index);
     //console.log(delta);
     }
@@ -85,6 +91,7 @@ class App extends Component{
                       index={index}
                       removePlayer={this.handleRemovePlayer.bind(this)}
                       changeScore={this.handleScoreChange.bind(this)}
+                      highScore={this.highScore}
                   />
               )})}
               <AddPlayerForm addPlayer={this.handleAddPlayer.bind(this)}/>
