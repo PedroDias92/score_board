@@ -8,7 +8,7 @@ class StopWatch extends Component{
     }
     
     componentDidMount(){
-        console.log('The stopwatch mounted');
+        //console.log('The stopwatch mounted');
         this.intervalID = setInterval(()=>this.tick(),100);
     }
 
@@ -18,7 +18,7 @@ class StopWatch extends Component{
     }
 
     tick(){
-        console.log("ticking")
+        //console.log("ticking")
         if(this.state.isRunning){
             const now = Date.now();
             this.setState( prevState =>({
@@ -33,7 +33,7 @@ class StopWatch extends Component{
             isRunning: !prevState.isRunning
         }));
         if(!this.state.isRunning){
-            console.log("start")
+            //console.log("start")
             this.setState( prevState =>({
                 previousTime: Date.now()
             }));

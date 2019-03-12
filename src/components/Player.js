@@ -1,22 +1,35 @@
-import React from 'react';
+import React,{PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import Counter from './Counter'
 
-const Player = (props) => {
-    //console.log(props.removePlayer)  //to check if function has been called
-    //console.log(props.id) //to check if id has been called
-    return(
-        <div className="player">
-            <span className="player-name">
-                <button className="remove-player" onClick={()=>props.removePlayer(props.id)}>✖</button>
-                {props.name}
-            </span>
-            <Counter 
-                score={props.score}
-                index={props.index}
-                changeScore={props.changeScore}
-            />
-        </div>
-    );
-  }
+
+class Player extends PureComponent {
+    render(){
+        const { name,id,score,index,removePlayer,changeScore}=this.props;
+        console.log(name + ' rendered')
+        return(
+            <div className="player">
+                <span className="player-name">
+                    <button className="remove-player" onClick={()=>removePlayer(id)}>✖</button>
+                    {name}
+                </span>
+                <Counter 
+                    score={score}
+                    index={index}
+                    changeScore={changeScore}
+                />
+            </div>
+        );
+    }
+}
+
+Player.propTypes = {
+    name: PropTypes.string,
+    id: PropTypes.number,
+    score: PropTypes.number,
+    index: PropTypes.number,
+    removePlayer: PropTypes.func,
+    changeScore: PropTypes.func
+}
 
 export default Player;
