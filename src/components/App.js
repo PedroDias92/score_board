@@ -51,16 +51,18 @@ class App extends Component{
   }
 
   handleAddPlayer(name){
-      this.setState({
-          players:[
-              ...this.state.players, //Spread syntax , makes a copy of all objects and adds a new one
-              {
-                name,
-                score: 0,
-                id: this.prevPlayerId +=1,
-              }
-          ]
-      })
+      this.setState( prevState => {
+          return{
+            players:[
+                ...prevState.players, //Spread syntax , makes a copy of all objects and adds a new one
+                {
+                  name,
+                  score: 0,
+                  id: this.prevPlayerId +=1,
+                }
+            ]
+        }
+      });
   }
 
   render(){
